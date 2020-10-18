@@ -1,6 +1,9 @@
 package li.cil.kotraycer.render
 
-import li.cil.kotraycer.math.*
+import li.cil.kotraycer.math.Ray
+import li.cil.kotraycer.math.Vector2
+import li.cil.kotraycer.math.Vector3
+import li.cil.kotraycer.math.deg2rad
 import kotlin.math.tan
 
 class SimpleCamera(

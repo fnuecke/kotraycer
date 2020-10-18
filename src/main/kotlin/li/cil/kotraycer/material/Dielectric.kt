@@ -2,7 +2,6 @@ package li.cil.kotraycer.material
 
 import li.cil.kotraycer.math.Ray
 import li.cil.kotraycer.math.Vector3
-import li.cil.kotraycer.math.unaryMinus
 import li.cil.kotraycer.render.Hit
 import li.cil.kotraycer.render.RenderContext
 import li.cil.kotraycer.render.trace
