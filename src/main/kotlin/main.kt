@@ -40,7 +40,7 @@ fun main() {
     fun Random.nextLambertian() = Lambertian(colors[nextInt(colors.size)])
     fun Random.nextMetallic() = Metallic(colors[nextInt(colors.size)], nextFloat())
     fun Random.nextDielectric() = Dielectric(1 + nextFloat())
-    fun Random.nextEmissive() = Emissive(Colors.WHITE.lerp(colors[nextInt(colors.size)], nextFloat() * 0.2f))
+    fun Random.nextEmissive() = Emissive(3f * Colors.WHITE.lerp(colors[nextInt(colors.size)], nextFloat() * 0.3f))
 
     val materialPool = listOf(
         { rng: Random -> rng.nextLambertian() },
