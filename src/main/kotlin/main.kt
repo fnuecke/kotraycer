@@ -3,10 +3,7 @@ import li.cil.kotraycer.geometry.BVH
 import li.cil.kotraycer.geometry.ShapeList
 import li.cil.kotraycer.geometry.Sphere
 import li.cil.kotraycer.material.*
-import li.cil.kotraycer.math.BlueNoise
-import li.cil.kotraycer.math.Vector2
-import li.cil.kotraycer.math.Vector3
-import li.cil.kotraycer.math.nextVector3
+import li.cil.kotraycer.math.*
 import li.cil.kotraycer.render.MAX_RECURSION
 import li.cil.kotraycer.render.RenderContext
 import li.cil.kotraycer.render.SimpleCamera
@@ -14,6 +11,7 @@ import li.cil.kotraycer.render.trace
 import java.awt.Desktop
 import java.awt.image.BufferedImage
 import java.io.File
+import java.util.*
 import javax.imageio.ImageIO
 import kotlin.math.min
 import kotlin.random.Random
@@ -78,16 +76,16 @@ fun main() {
     )
 
     val image = BufferedImage(resolutionX, resolutionY, BufferedImage.TYPE_INT_RGB)
-
-    val context = RenderContext(scene, rng, MAX_RECURSION)
-    val samples = BlueNoise.generate(context.rng, SAMPLE_COUNT)
+    val samples = BlueNoise.generate(rng, SAMPLE_COUNT)
 
     val jobSize = 16
     val jobs = (0 until resolutionX step jobSize).flatMap { x ->
         (0 until resolutionY step jobSize).map { y -> Pair(x, y) }
     }
+
     val totalTime = measureTimeMillis {
         jobs.parallelStream().forEach { (x0, y0) ->
+            val context = RenderContext(scene, Random(Objects.hash(x0, y0)), MAX_RECURSION)
             (y0 until min(y0 + jobSize, resolutionY)).forEach { y ->
                 (x0 until min(x0 + jobSize, resolutionX)).forEach { x ->
                     var color = Colors.BLACK
